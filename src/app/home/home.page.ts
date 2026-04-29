@@ -9,4 +9,6 @@ import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/stan
 })
 export class HomePage {
   constructor() {}
+
+  myApiKey: string = "4f031266ed2febb6c351e905ab037f74";
 }
