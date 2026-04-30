@@ -7,12 +7,14 @@
 <ion-content [fullscreen]="true">
  
   <ion-item>
-    <ion-input label="Search" placeholder="Movie Name"></ion-input>
+    <ion-input label="Search" placeholder="Movie Name" [(ngModel)] = "keyword"></ion-input>
   </ion-item>
-  <ion-button expand="block">SEARCH</ion-button>
+  <ion-button expand="block" (click) = "openMovies()">SEARCH</ion-button>
+
+  <h4>{{titleTM}}</h4>
 
   <ion-card *ngFor="let movie of trendingMovies">
-    <img class="posterSize" [src] = "posterBase + movie.poster_path" alt="" />
+    <img class="posterSize" [src] = "posterURL + movie.poster_path" alt="" />
     <ion-card-title class="titleSize">{{movie.title}}</ion-card-title>
     <ion-card-content>
       {{movie.overview}}
