@@ -56,27 +56,19 @@ export class MovieDetailsPage implements OnInit {
       favourites = [];
     }
 
-    /** 
-     * check if the movie is already in the favourites array
-     * source of the find() method https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-    **/
-    //
-    var foundFavourite = favourites.find((favourite: any) => favourite.id === movie.id);
+    favourites.push(movie); //push the movie to an array
+    await this.myData.set("favourites", favourites)
 
-    if (!foundFavourite) {
-      favourites.push(movie) //if not favourite, push it to the array
-      await this.myData.set("favourites", favourites);
-
-      //display remove from favourites button
-      this.isFavourite = false;
-
-    } else {
-      console.log("Movie is already among the favourites."); //checking console
-    }
+    this.isFavourite = false;
   }
 
-  async removeFromFavourites () {
+  async removeFromFavourites (movie: any) {
+    var favourites = await this.myData.get("favourites");
 
+    favourites = favourites.filter((removeFavourite: any) => removeFavourite! === movie.id);
+    await this.myData.set("favourites", favourites)
+
+    this.isFavourite = true;
   }
 
   //icon navigating to Home Page

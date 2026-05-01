@@ -20,7 +20,7 @@
     Add to Favourites
   </ion-button>
 
-  <ion-button (click) = "removeFromFavourites()" *ngIf="!isFavourite" shape="round" size="small" class="favouriteIcon">
+  <ion-button (click) = "removeFromFavourites(movie)" *ngIf="!isFavourite" shape="round" size="small" class="favouriteIcon">
     <ion-icon slot="start" name="heart"></ion-icon>
     Remove from Favourites
   </ion-button>
