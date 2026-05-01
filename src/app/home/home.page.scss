@@ -27,10 +27,10 @@
 }
 
 .posterSize {
-  width: 80px;
+  width: 200px;
   height: auto;
-  margin-top: 10px;
-  margin-left: 10px;
+  display: block;
+  margin: 10px auto;
 }
 
 .titleSize {
@@ -42,6 +42,13 @@
   margin: 5px;
 }
 
-.titleSize {
-  margin-left: 10px;
+.chessboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.chessboard ion-card {
+  width: 250px;
 }

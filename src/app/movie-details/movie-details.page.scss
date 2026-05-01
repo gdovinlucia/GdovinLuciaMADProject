@@ -9,6 +9,7 @@
 .favouriteIcon {
     margin-left: 20px;
     margin-bottom: 20px;
+    
 }
 
 .hideID {
@@ -20,4 +21,16 @@
   height: auto;
   margin-top: 10px;
   margin-left: 10px;
+  display: flex;
+}
+
+.chessboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.chessboard ion-card {
+    width: 140px;
 }

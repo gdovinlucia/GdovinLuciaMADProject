@@ -11,13 +11,15 @@
 
 <ion-content *ngIf="favourites" [fullscreen]="true">
 
-  <ion-card *ngFor="let favourite of favourites">
+  <div class="chessboard">
+  <ion-card *ngFor="let favourite of favourites" class="movieCard">
     <img alt="Movie Poster" class="posterSize"
     [src]="posterURL + favourite.poster_path"
+    onerror="this.onerror=null;this.src='https://ionicframework.com/docs/img/demos/card-media.png';"
 />
       <ion-card-subtitle class="titleSize">{{favourite.title}}</ion-card-subtitle>
       <ion-button size="small" shape="round" fill="outline" class="buttonDetails" (click) = "openMovieDetails(favourite)">Details</ion-button>
-
   </ion-card>
+</div>
 
 </ion-content>

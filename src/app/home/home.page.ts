@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonItem, IonInput, IonCard, IonCardContent, IonCardTitle, IonIcon, IonButtons} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonItem, IonInput, IonCard, IonCardContent, IonIcon, IonButtons} from '@ionic/angular/standalone';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, IonButton, IonItem, IonInput, IonCard, IonCardContent, IonCardTitle, FormsModule, IonIcon, IonButtons],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, IonButton, IonItem, IonInput, IonCard, IonCardContent, FormsModule, IonIcon, IonButtons],
 })
 export class HomePage {
   constructor(private myHttp: MyHttp, private myData: MyData, private router: Router) {}

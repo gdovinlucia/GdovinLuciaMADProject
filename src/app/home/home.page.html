@@ -17,10 +17,11 @@
       [(ngModel)]="keyword"
     ></ion-input>
   </ion-item>
-  <ion-button expand="block" (click)="openMovies()">SEARCH</ion-button>
+  <ion-button fill="outline" expand="block" shape="round" (click)="openMovies()">SEARCH</ion-button>
 
   <h4 class="titleSize">{{titleTM}}</h4>
 
+  <div class="chessboard">
   <ion-card
     (click)="openMovieDetailsPage(movie)"
     *ngFor="let movie of trendingMovies"
@@ -29,8 +30,9 @@
       class="posterSize"
       [src]="posterURL + movie.poster_path"
       alt="Movie Poster"
+      onerror="this.onerror=null;this.src='https://ionicframework.com/docs/img/demos/card-media.png';"
     />
-    <ion-card-title class="titleSize">{{movie.title}}</ion-card-title>
     <ion-card-content> {{movie.overview}} </ion-card-content>
   </ion-card>
+</div>
 </ion-content>

@@ -14,7 +14,7 @@
 
 <ion-content *ngIf="person" [fullscreen]="true">
   <ion-card>
-    <img class="personPhoto" alt="Photo" [src]="castPhotoURL + person.profile_path" />
+    <img class="personPhoto" alt="Photo" [src]="castPhotoURL + person.profile_path" onerror="this.onerror=null;this.src='https://ionicframework.com/docs/img/demos/card-media.png';" />
     <ion-card-header>
       <ion-card-title>{{person.also_known_as}}</ion-card-title>
       <ion-card-subtitle>{{person.birthday}} - {{person.deathday || 'present day'}}</ion-card-subtitle>
@@ -28,7 +28,7 @@
       <ion-list>
         <ion-item (click)="openMovieDetails(credit)" *ngFor="let credit of credits">
           <ion-thumbnail slot="end">
-            <img alt="Movie Poster" [src]="posterURL + credit.poster_path" />
+            <img alt="Movie Poster" [src]="posterURL + credit.poster_path" onerror="this.onerror=null;this.src='https://ionicframework.com/docs/img/demos/card-media.png';" />
           </ion-thumbnail>
           <ion-label>{{credit.title}}</ion-label>
         </ion-item>
