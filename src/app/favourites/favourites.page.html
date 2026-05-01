@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content *ngIf="favourites" [fullscreen]="true">
 
   <ion-card *ngFor="let favourite of favourites">
     <img alt="Movie Poster" class="posterSize"

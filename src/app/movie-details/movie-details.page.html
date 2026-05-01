@@ -1,7 +1,7 @@
-<ion-header [translucent]="true">
+<ion-header *ngIf="movie" [translucent]="true">
   <ion-toolbar>
     <ion-buttons>
-      <ion-title slot="start">{{movie.title}}</ion-title>
+      <ion-title slot="start" >{{movie.title}}</ion-title>
       <ion-title class="hideID">{{movie.id}}</ion-title>
       <ion-button shape="round" slot="end" (click)="openHome()">
         <ion-icon name="home" class="icons"></ion-icon>
@@ -13,7 +13,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content *ngIf="movie" [fullscreen]="true">
   <div class="overview">{{movie.overview}}</div>
   <ion-button (click) = "addToFavourites(movie)" *ngIf="isFavourite" shape="round" fill="outline" size="small" class="favouriteIcon">
     <ion-icon slot="start" name="heart"></ion-icon>
@@ -26,7 +26,7 @@
   </ion-button>
 
   <ion-title>CAST</ion-title>
-  <ion-card *ngFor="let actor of cast">
+  <ion-card (click) = "openPersonDetails(actor)" *ngFor="let actor of cast">
     <img
       class="castPhoto"
       alt="cast Photograph"
@@ -39,11 +39,11 @@
   </ion-card>
 
   <ion-title>CREW</ion-title>
-  <ion-card *ngFor="let member of crew">
+  <ion-card (click) = "openPersonDetails(member)" *ngFor="let member of crew">
     <img
       class="castPhoto"
       alt="crew Photograph"
-      [src]="castPhotoURL + crew.profile_path"
+      [src]="castPhotoURL + member.profile_path"
     />
     <ion-card-header>
       <ion-card-title>{{member.name}}</ion-card-title>

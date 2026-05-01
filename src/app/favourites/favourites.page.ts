@@ -19,13 +19,14 @@ export class FavouritesPage implements OnInit {
   constructor(private router: Router, private myData: MyData, private myHttp: MyHttp) { }
 
   //variables
-  title: string = "Favourite Movies"
+  title!: string; 
   movieID: any;
   favourites: any = [];
   posterURL: string = "https://image.tmdb.org/t/p/w500/";
 
   ngOnInit() {
-    this.getFavouritesFromStorage()
+    this.getFavouritesFromStorage();
+    this.title = "Favourite Movies";
   }
 
   async getFavouritesFromStorage() {

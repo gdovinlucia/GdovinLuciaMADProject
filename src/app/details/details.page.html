@@ -1,13 +1,39 @@
-<ion-header [translucent]="true">
+<ion-header *ngIf="person" [translucent]="true">
   <ion-toolbar>
-    <ion-title>Details</ion-title>
+    <ion-buttons>
+      <ion-title slot="start">{{person.name}}</ion-title>
+      <ion-button shape="round" slot="end" (click)="openHome()">
+        <ion-icon name="home" class="icons"></ion-icon>
+      </ion-button>
+      <ion-button shape="round" slot="end" (click)="openFavourites()">
+        <ion-icon name="heart" class="icons"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content *ngIf="person" [fullscreen]="true">
+  <ion-card>
+    <img class="personPhoto" alt="Photo" [src]="castPhotoURL + person.profile_path" />
+    <ion-card-header>
+      <ion-card-title>{{person.also_known_as}}</ion-card-title>
+      <ion-card-subtitle>{{person.birthday}} - {{person.deathday || 'present day'}}</ion-card-subtitle>
+      <ion-card-subtitle>{{person.place_of_birth}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>{{person.biography}}</ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item (click)="openMovieDetails(credit)" *ngFor="let credit of credits">
+          <ion-thumbnail slot="end">
+            <img alt="Movie Poster" [src]="posterURL + credit.poster_path" />
+          </ion-thumbnail>
+          <ion-label>{{credit.title}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

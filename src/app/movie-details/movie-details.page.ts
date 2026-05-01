@@ -30,7 +30,6 @@ export class MovieDetailsPage implements OnInit {
   ngOnInit() {
     this.getMovieDetailsFromStorage();
     this.isFavourite = true;
-
   }
 
   async getMovieDetailsFromStorage() {
@@ -65,10 +64,15 @@ export class MovieDetailsPage implements OnInit {
   async removeFromFavourites (movie: any) {
     var favourites = await this.myData.get("favourites");
 
-    favourites = favourites.filter((removeFavourite: any) => removeFavourite! === movie.id);
+    favourites = favourites.filter((removeFavourite: any) => removeFavourite.id !== movie.id);
     await this.myData.set("favourites", favourites)
 
     this.isFavourite = true;
+  }
+
+  async openPersonDetails(person: any) {
+    await this.myData.set("person", person);
+    this.router.navigate(['/details']);
   }
 
   //icon navigating to Home Page
