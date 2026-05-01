@@ -55,6 +55,7 @@ export class HomePage {
     var searchMovies = await this.myHttp.get(searchOptions);
     this.trendingMovies = searchMovies.data.results;
     this.titleTM = this.keyword + " Movies";
+    this.keyword = "";
   }
 
   //icon navigating to Favourites Page
