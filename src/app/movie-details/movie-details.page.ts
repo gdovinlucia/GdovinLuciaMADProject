@@ -18,15 +18,19 @@ export class MovieDetailsPage implements OnInit {
 
   constructor(private myData: MyData, private router: Router, private myHttp: MyHttp) { }
 
+  //variables
   movie: any;
   movieID: any;
   cast: any = [];
   crew: any = [];
   myApiKey: string = "4f031266ed2febb6c351e905ab037f74";
   castPhotoURL: string = "https://image.tmdb.org/t/p/w500";
+  isFavourite!: boolean;
   
   ngOnInit() {
     this.getMovieDetailsFromStorage();
+    this.isFavourite = true;
+
   }
 
   async getMovieDetailsFromStorage() {
@@ -40,20 +44,49 @@ export class MovieDetailsPage implements OnInit {
     }
 
     var castDetails = await this.myHttp.get(options);
-    this.cast = castDetails.data.cast;
-    this.crew = castDetails.data.crew;
+    this.cast = castDetails.data.cast; //displaying a list of cast members
+    this.crew = castDetails.data.crew; //displaying a list of crew members
+  }
+
+  async addToFavourites(movie: any) {
+    var favourites = await this.myData.get("favourites");
+
+    //if a movie isn't in the favourites array, add it
+    if (!favourites) {
+      favourites = [];
+    }
+
+    /** 
+     * check if the movie is already in the favourites array
+     * source of the find() method https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+    **/
+    //
+    var foundFavourite = favourites.find((favourite: any) => favourite.id === movie.id);
+
+    if (!foundFavourite) {
+      favourites.push(movie) //if not favourite, push it to the array
+      await this.myData.set("favourites", favourites);
+
+      //display remove from favourites button
+      this.isFavourite = false;
+
+    } else {
+      console.log("Movie is already among the favourites."); //checking console
+    }
+  }
+
+  async removeFromFavourites () {
 
   }
 
-  //icon navigeting to Home Page
+  //icon navigating to Home Page
   async openHome() {
     this.router.navigate(['/home']);
   }
 
-  //icon navigeting to Favourites Page
+  //icon navigating to Favourites Page
   async openFavourites() {
     this.router.navigate(['/favourites']);
   }
-
 }
 

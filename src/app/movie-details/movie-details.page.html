@@ -15,9 +15,14 @@
 
 <ion-content [fullscreen]="true">
   <div class="overview">{{movie.overview}}</div>
-  <ion-button shape="round" fill="outline" size="small" class="favouriteIcon">
+  <ion-button (click) = "addToFavourites(movie)" *ngIf="isFavourite" shape="round" fill="outline" size="small" class="favouriteIcon">
     <ion-icon slot="start" name="heart"></ion-icon>
     Add to Favourites
+  </ion-button>
+
+  <ion-button (click) = "removeFromFavourites()" *ngIf="!isFavourite" shape="round" size="small" class="favouriteIcon">
+    <ion-icon slot="start" name="heart"></ion-icon>
+    Remove from Favourites
   </ion-button>
 
   <ion-title>CAST</ion-title>

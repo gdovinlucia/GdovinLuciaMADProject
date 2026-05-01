@@ -57,12 +57,12 @@ export class HomePage {
     this.titleTM = this.keyword + " Movies";
   }
 
-  //icon navigeting to Favourites Page
+  //icon navigating to Favourites Page
   openFavourites() {
     this.router.navigate(['/favourites']);
   }
 
-  //openMovieDetailsPage() stores the chosen movie and redirecting to Movie Details Page
+  //openMovieDetailsPage() stores the chosen movie and redirects to Movie Details Page
   async openMovieDetailsPage(movie: any) {
     await this.myData.set("movie", movie);
     this.router.navigate(['/movie-details']);
