@@ -1,13 +1,48 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>MovieDetails</ion-title>
+    <ion-buttons>
+      <ion-title slot="start">{{movie.title}}</ion-title>
+      <ion-title class="hideID">{{movie.id}}</ion-title>
+      <ion-button shape="round" slot="end" (click)="openHome()">
+        <ion-icon name="home" class="icons"></ion-icon>
+      </ion-button>
+      <ion-button shape="round" slot="end" (click)="openFavourites()">
+        <ion-icon name="heart" class="icons"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">MovieDetails</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="overview">{{movie.overview}}</div>
+  <ion-button shape="round" fill="outline" size="small" class="favouriteIcon">
+    <ion-icon slot="start" name="heart"></ion-icon>
+    Add to Favourites
+  </ion-button>
+
+  <ion-title>CAST</ion-title>
+  <ion-card *ngFor="let actor of cast">
+    <img
+      class="castPhoto"
+      alt="cast Photograph"
+      [src]="castPhotoURL + actor.profile_path"
+    />
+    <ion-card-header>
+      <ion-card-title>{{actor.character}}</ion-card-title>
+      <ion-card-subtitle>{{actor.name}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-title>CREW</ion-title>
+  <ion-card *ngFor="let member of crew">
+    <img
+      class="castPhoto"
+      alt="crew Photograph"
+      [src]="castPhotoURL + crew.profile_path"
+    />
+    <ion-card-header>
+      <ion-card-title>{{member.name}}</ion-card-title>
+      <ion-card-subtitle>{{member.job}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 </ion-content>

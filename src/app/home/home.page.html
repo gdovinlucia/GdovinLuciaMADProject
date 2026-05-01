@@ -1,24 +1,37 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>G00473367</ion-title>
+    <ion-buttons>
+      <ion-title slot="start">{{myStudentNumber}}</ion-title>
+      <ion-button slot="end" (click)="openFavourites()">
+        <ion-icon name="heart" class="icons"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
- 
   <ion-item>
-    <ion-input label="Search" placeholder="Movie Name" [(ngModel)] = "keyword"></ion-input>
+    <ion-input
+      label="Search"
+      placeholder="Movie Name"
+      [(ngModel)]="keyword"
+    ></ion-input>
   </ion-item>
-  <ion-button expand="block" (click) = "openMovies()">SEARCH</ion-button>
+  <ion-button expand="block" (click)="openMovies()">SEARCH</ion-button>
 
-  <h4>{{titleTM}}</h4>
+  <h4 class="titleSize">{{titleTM}}</h4>
 
-  <ion-card *ngFor="let movie of trendingMovies">
-    <img class="posterSize" [src] = "posterURL + movie.poster_path" alt="" />
+  <ion-card
+    (click)="openMovieDetailsPage(movie)"
+    *ngFor="let movie of trendingMovies"
+  >
+    <img
+      class="posterSize"
+      [src]="posterURL + movie.poster_path"
+      alt="Movie Poster"
+    />
     <ion-card-title class="titleSize">{{movie.title}}</ion-card-title>
-    <ion-card-content>
-      {{movie.overview}}
-    </ion-card-content>
+    <ion-card-subtitle class="hideID">{{movie.id}}</ion-card-subtitle>
+    <ion-card-content> {{movie.overview}} </ion-card-content>
   </ion-card>
-
 </ion-content>

@@ -26,9 +26,9 @@
     "@capacitor/haptics": "8.0.2",
     "@capacitor/keyboard": "8.0.3",
     "@capacitor/status-bar": "8.0.2",
-    "@ionic/angular": "^8.0.0",
+    "@ionic/angular": "^8.8.5",
     "@ionic/storage-angular": "^4.0.0",
-    "ionicons": "^7.0.0",
+    "ionicons": "^7.4.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
