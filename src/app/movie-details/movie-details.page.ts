@@ -25,16 +25,17 @@ export class MovieDetailsPage implements OnInit {
   crew: any = [];
   myApiKey: string = "4f031266ed2febb6c351e905ab037f74";
   castPhotoURL: string = "https://image.tmdb.org/t/p/w500";
-  isFavourite!: boolean;
+  isFavourite!: boolean; //hide the button
   
   ngOnInit() {
     this.getMovieDetailsFromStorage();
     this.isFavourite = true;
   }
 
+  //getMovieDetailsFromStorage() retrieves a stored movie based on the entered value
   async getMovieDetailsFromStorage() {
     this.movie = await this.myData.get("movie");
-    // console.log(this.movie);
+    // console.log(this.movie); //checking
 
     this.movieID = this.movie.id;
 
@@ -46,7 +47,8 @@ export class MovieDetailsPage implements OnInit {
     this.cast = castDetails.data.cast; //displaying a list of cast members
     this.crew = castDetails.data.crew; //displaying a list of crew members
   }
-
+  
+  //addToFavourites() stores a favourite movie
   async addToFavourites(movie: any) {
     var favourites = await this.myData.get("favourites");
 
@@ -58,18 +60,21 @@ export class MovieDetailsPage implements OnInit {
     favourites.push(movie); //push the movie to an array
     await this.myData.set("favourites", favourites)
 
-    this.isFavourite = false;
+    this.isFavourite = false; //hide favourite button
   }
 
+  //removeFromFavourites() removes a stored movie from the favourites array
   async removeFromFavourites (movie: any) {
     var favourites = await this.myData.get("favourites");
 
+    //using filter() method because pop() method only removes the last element (I googled the examples how to use it)
     favourites = favourites.filter((removeFavourite: any) => removeFavourite.id !== movie.id);
     await this.myData.set("favourites", favourites)
 
-    this.isFavourite = true;
+    this.isFavourite = true; //show favourite button
   }
 
+  //openPersonDetails() stores the selected person (an actor feom the cast or a mmeber of the crew) and redirects to the Details Page
   async openPersonDetails(person: any) {
     await this.myData.set("person", person);
     this.router.navigate(['/details']);

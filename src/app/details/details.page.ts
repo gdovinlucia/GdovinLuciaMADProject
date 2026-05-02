@@ -30,21 +30,23 @@ export class DetailsPage implements OnInit {
     this.openDetailsFromStorage();
   }
 
+  //opneDetailsFromstorage() gets selected person from the storage
   async openDetailsFromStorage() {
     this.person = await this.myData.get("person");
 
-    console.log("person" + this.person);
-
+    //person ID for Api
     this.personID = this.person.id;
 
+    //getting person's details
     var options: HttpOptions = {
       url: "https://api.themoviedb.org/3/person/" + this.personID + "?api_key=" + this.myApiKey
     }
 
     var personDetails = await this.myHttp.get(options);
     this.person = personDetails.data;
-    console.log(this.person);
+    // console.log(this.person); //checks
 
+    //getting movie credits of a selected person
     var creditsOptions: HttpOptions = {
       url: "https://api.themoviedb.org/3/person/" + this.personID + "/movie_credits?api_key=" + this.myApiKey
     }
@@ -53,6 +55,7 @@ export class DetailsPage implements OnInit {
     this.credits = movieCredits.data.cast;
   }
 
+  //openMovieDetails() stored the selected movie and redirects to its Movie Details Page
   async openMovieDetails(movie: any) {
     await this.myData.set("movie", movie);
     this.router.navigate(['/movie-details']);

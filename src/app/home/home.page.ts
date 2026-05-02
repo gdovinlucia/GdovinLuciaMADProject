@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class HomePage {
   constructor(private myHttp: MyHttp, private myData: MyData, private router: Router) {}
 
+  //variables
   myStudentNumber: string = "G00473367";
   myApiKey: string = "4f031266ed2febb6c351e905ab037f74";
   keyword: string = "";
@@ -31,7 +32,7 @@ export class HomePage {
     this.titleTM = "Today's Trending Movies";
   }
 
-  //getTrendingMovies() shows the current trending movies before hitting search button
+  //getTrendingMovies() shows the current trending movies before hitting the search button
   async getTrendingMovies() {
     var result = await this.myHttp.get(this.options);
     // console.log(JSON.stringify(result))
@@ -39,7 +40,7 @@ export class HomePage {
     // console.log(this.trendingMovies.poster_path);
   }
 
-  //openMovies() shows the seached movies based on the keyword
+  //openMovies() shows the searched movies based on the entered keyword
   async openMovies() {
     
     //if the search hasn't been initialized (no keyword), display Trending Movies
@@ -49,21 +50,22 @@ export class HomePage {
       return;
     }
 
+    //shows the searched movies
     var searchOptions: HttpOptions = {
       url: "https://api.themoviedb.org/3/search/movie?query=" + this.keyword + "&api_key=" + this.myApiKey
     }
     var searchMovies = await this.myHttp.get(searchOptions);
     this.trendingMovies = searchMovies.data.results;
     this.titleTM = this.keyword + " Movies";
-    this.keyword = "";
+    this.keyword = ""; //blank keyword
   }
 
-  //icon navigating to Favourites Page
+  //icon navigating to the Favourites Page
   openFavourites() {
     this.router.navigate(['/favourites']);
   }
 
-  //openMovieDetailsPage() stores the chosen movie and redirects to Movie Details Page
+  //openMovieDetailsPage() stores the chosen movie and redirects to the Movie Details Page
   async openMovieDetailsPage(movie: any) {
     await this.myData.set("movie", movie);
     this.router.navigate(['/movie-details']);

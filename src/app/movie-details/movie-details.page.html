@@ -13,6 +13,12 @@
   </ion-toolbar>
 </ion-header>
 
+<!--The add-to-favourites or remove-from-favourites button should be displayed 
+based on the condition if a movie is/is not in the favourites array. 
+I was looking for a solution how to make it work better 
+because it didn't always work as intended at first 
+and *ngIf should help with the issue and shows the correct button.
+source: https://v17.angular.io/api/common/NgIf-->
 <ion-content *ngIf="movie" [fullscreen]="true">
   <div class="overview">{{movie.overview}}</div>
   <ion-button (click) = "addToFavourites(movie)" *ngIf="isFavourite" shape="round" fill="outline" size="small" class="favouriteIcon">

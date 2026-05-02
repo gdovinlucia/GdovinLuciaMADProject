@@ -5,7 +5,6 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, Ion
 import { Router } from '@angular/router';
 import { MyData } from '../services/my-data';
 import { MyHttp } from '../services/my-http';
-import { HttpOptions } from '@capacitor/core';
 
 @Component({
   selector: 'app-favourites',
@@ -29,10 +28,12 @@ export class FavouritesPage implements OnInit {
     this.title = "Favourite Movies";
   }
 
+  //getFavouritesFromStorage() retrieves stored values (movies add to favourites array)
   async getFavouritesFromStorage() {
     this.favourites = await this.myData.get("favourites");
   }
-
+  
+  //openMovieDetails() stores a selected movie based on its key and redirects to its Movie Details Page
   async openMovieDetails (favourite: any) {
     await this.myData.set("movie", favourite);
     this.router.navigate(['/movie-details']);

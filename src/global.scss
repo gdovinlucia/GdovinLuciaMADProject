@@ -36,6 +36,8 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+//I added some styling inspired by IQiYI website
+
 body {
     background: #0d1117;
     color: #e6f7ff;
@@ -53,6 +55,7 @@ ion-content, ion-toolbar, ion-item {
 ion-button {
     --border-color: var(--aqua);
     --color: var(--aqua);
+    --background: transparent;
 }
 ion-title, .titleSize {
     color: var(--aqua) ;
@@ -69,6 +72,12 @@ ion-title, .titleSize {
 
  ion-icon {
     color: var(--aqua);
+ }
+
+ ion-button:hover,
+ ion-card:hover,
+ img:hover {
+    opacity: 0.8;
  }
 
  .posterSize {
