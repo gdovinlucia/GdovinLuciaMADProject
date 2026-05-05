@@ -27,11 +27,16 @@ export class DetailsPage implements OnInit {
   myApiKey: string = "4f031266ed2febb6c351e905ab037f74";
 
   ngOnInit() {
-    this.openDetailsFromStorage();
+    this.getDetailsFromStorage();
+  }
+
+  //for refreshing data
+  ionViewWillEnter() {
+    this.getDetailsFromStorage();
   }
 
   //opneDetailsFromstorage() gets selected person from the storage
-  async openDetailsFromStorage() {
+  async getDetailsFromStorage() {
     this.person = await this.myData.get("person");
 
     //person ID for Api

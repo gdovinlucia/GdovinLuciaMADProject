@@ -23,21 +23,30 @@ export class MovieDetailsPage implements OnInit {
   movieID: any;
   cast: any = [];
   crew: any = [];
+  favourites: any = [];
   myApiKey: string = "4f031266ed2febb6c351e905ab037f74";
   castPhotoURL: string = "https://image.tmdb.org/t/p/w500";
   isFavourite!: boolean; //hide the button
   
   ngOnInit() {
     this.getMovieDetailsFromStorage();
-    this.isFavourite = true;
+  }
+
+  //for refreshing data
+  ionViewWillEnter() {
+    this.getMovieDetailsFromStorage();
   }
 
   //getMovieDetailsFromStorage() retrieves a stored movie based on the entered value
   async getMovieDetailsFromStorage() {
     this.movie = await this.myData.get("movie");
     // console.log(this.movie); //checking
-
     this.movieID = this.movie.id;
+
+    this.favourites = await this.myData.get("favourites");
+    var foundFavourite = this.favourites.find((favourite: any) => favourite.id === this.movie.id);
+
+    this.isFavourite = !foundFavourite;
 
     var options: HttpOptions = {
       url: "https://api.themoviedb.org/3/movie/" + this.movieID + "/credits?api_key=" + this.myApiKey
@@ -50,26 +59,30 @@ export class MovieDetailsPage implements OnInit {
   
   //addToFavourites() stores a favourite movie
   async addToFavourites(movie: any) {
-    var favourites = await this.myData.get("favourites");
+    this.favourites = await this.myData.get("favourites");
 
     //if a movie isn't in the favourites array, add it
-    if (!favourites) {
-      favourites = [];
+    if (!this.favourites) {
+      this.favourites = [];
     }
 
-    favourites.push(movie); //push the movie to an array
-    await this.myData.set("favourites", favourites)
+    var foundFavourite = this.favourites.find((favourite: any) => favourite.id === movie.id);
 
-    this.isFavourite = false; //hide favourite button
+    if (!foundFavourite) {
+      this.favourites.push(movie) //if not favourite, push it to the array
+      await this.myData.set("favourites", this.favourites);
+    }
+    //display remove from favourites button
+    this.isFavourite = false;
   }
 
   //removeFromFavourites() removes a stored movie from the favourites array
   async removeFromFavourites (movie: any) {
-    var favourites = await this.myData.get("favourites");
+   // this.favourites = await this.myData.get("favourites");
 
     //using filter() method because pop() method only removes the last element (I googled the examples how to use it)
-    favourites = favourites.filter((removeFavourite: any) => removeFavourite.id !== movie.id);
-    await this.myData.set("favourites", favourites)
+    this.favourites = this.favourites.filter((removeFavourite: any) => removeFavourite.id !== movie.id);
+    await this.myData.set("favourites", this.favourites)
 
     this.isFavourite = true; //show favourite button
   }
@@ -89,5 +102,7 @@ export class MovieDetailsPage implements OnInit {
   async openFavourites() {
     this.router.navigate(['/favourites']);
   }
+
+  //Source for the find() method: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
 }
 

@@ -32,6 +32,11 @@ export class HomePage {
     this.titleTM = "Today's Trending Movies";
   }
 
+  //for refreshing data
+  ionViewWillEnter() {
+    this.trendingMovies();
+  }
+
   //getTrendingMovies() shows the current trending movies before hitting the search button
   async getTrendingMovies() {
     var result = await this.myHttp.get(this.options);

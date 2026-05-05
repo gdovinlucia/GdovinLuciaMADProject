@@ -28,14 +28,21 @@ export class FavouritesPage implements OnInit {
     this.title = "Favourite Movies";
   }
 
+  //for refreshing data
+  ionViewWillEnter() {
+    this.getFavouritesFromStorage();
+  }
+
   //getFavouritesFromStorage() retrieves stored values (movies add to favourites array)
   async getFavouritesFromStorage() {
     this.favourites = await this.myData.get("favourites");
+
+    this.favourites.sort((a: any, b: any) => a.title.localeCompare(b.title)); //sorts favourites alphabetically
   }
   
   //openMovieDetails() stores a selected movie based on its key and redirects to its Movie Details Page
-  async openMovieDetails (favourite: any) {
-    await this.myData.set("movie", favourite);
+  async openMovieDetails (movie: any) {
+    await this.myData.set("movie", movie);
     this.router.navigate(['/movie-details']);
   }
 
@@ -43,4 +50,6 @@ export class FavouritesPage implements OnInit {
   async openHome() {
     this.router.navigate(['/home']);
   }
+
+  //Source for the sort() method: https://www.spguides.com/sort-array-alphabetically-in-typescript/
 }
