@@ -41,17 +41,23 @@ export class DetailsPage implements OnInit {
 
     //person ID for Api
     this.personID = this.person.id;
+    this.getPersonsDetails();
+    this.getCreditsDetails();
 
-    //getting person's details
+  }
+
+  //getPersonDetails() gets all the information about choosen cast or crew member
+  async getPersonsDetails() {
     var options: HttpOptions = {
       url: "https://api.themoviedb.org/3/person/" + this.personID + "?api_key=" + this.myApiKey
     }
 
     var personDetails = await this.myHttp.get(options);
     this.person = personDetails.data;
-    // console.log(this.person); //checks
+  }
 
-    //getting movie credits of a selected person
+  //getCreditsDetails() gets movie credits
+  async getCreditsDetails() {
     var creditsOptions: HttpOptions = {
       url: "https://api.themoviedb.org/3/person/" + this.personID + "/movie_credits?api_key=" + this.myApiKey
     }

@@ -37,7 +37,7 @@ export class MovieDetailsPage implements OnInit {
     this.getMovieDetailsFromStorage();
   }
 
-  //getMovieDetailsFromStorage() retrieves a stored movie based on the entered value
+  //getMovieDetailsFromStorage() retrieves a stored movie based on the entered value and checks if a movie is among favourites
   async getMovieDetailsFromStorage() {
     this.movie = await this.myData.get("movie");
     // console.log(this.movie); //checking
@@ -46,8 +46,14 @@ export class MovieDetailsPage implements OnInit {
     this.favourites = await this.myData.get("favourites");
     var foundFavourite = this.favourites.find((favourite: any) => favourite.id === this.movie.id);
 
+    //if movie is not found among favourite, it is not favourite - display add to favourites button
     this.isFavourite = !foundFavourite;
 
+    this.getCastAndCrew();
+  }
+
+  //getCastAndCrew() stores data about cast and crew
+  async getCastAndCrew() {
     var options: HttpOptions = {
       url: "https://api.themoviedb.org/3/movie/" + this.movieID + "/credits?api_key=" + this.myApiKey
     }
@@ -57,22 +63,18 @@ export class MovieDetailsPage implements OnInit {
     this.crew = castDetails.data.crew; //displaying a list of crew members
   }
   
-  //addToFavourites() stores a favourite movie
+  //addToFavourites() add a movie to favourites
   async addToFavourites(movie: any) {
     this.favourites = await this.myData.get("favourites");
 
-    //if a movie isn't in the favourites array, add it
-    if (!this.favourites) {
-      this.favourites = [];
-    }
-
+    //this variable repeats itself, so it could be stored in a separate method, but I didnt figure out the correct way how to do it without messing up what already worked
     var foundFavourite = this.favourites.find((favourite: any) => favourite.id === movie.id);
 
     if (!foundFavourite) {
       this.favourites.push(movie) //if not favourite, push it to the array
       await this.myData.set("favourites", this.favourites);
     }
-    //display remove from favourites button
+    //display remove from favourites button, movie is found among favourites
     this.isFavourite = false;
   }
 

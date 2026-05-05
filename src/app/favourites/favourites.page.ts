@@ -33,11 +33,15 @@ export class FavouritesPage implements OnInit {
     this.getFavouritesFromStorage();
   }
 
-  //getFavouritesFromStorage() retrieves stored values (movies add to favourites array)
+  //getFavouritesFromStorage() retrieves stored values (movies added to favourites array)
   async getFavouritesFromStorage() {
     this.favourites = await this.myData.get("favourites");
+    this.sortFavourites();
+  }
 
-    this.favourites.sort((a: any, b: any) => a.title.localeCompare(b.title)); //sorts favourites alphabetically
+  //sortFavourites() arranges movies alphabetically
+  sortFavourites() {
+    this.favourites.sort((a: any, b: any) => a.title.localeCompare(b.title));
   }
   
   //openMovieDetails() stores a selected movie based on its key and redirects to its Movie Details Page

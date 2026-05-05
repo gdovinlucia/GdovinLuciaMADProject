@@ -34,7 +34,7 @@ export class HomePage {
 
   //for refreshing data
   ionViewWillEnter() {
-    this.trendingMovies();
+    this.getTrendingMovies();
   }
 
   //getTrendingMovies() shows the current trending movies before hitting the search button
@@ -46,23 +46,22 @@ export class HomePage {
   }
 
   //openMovies() shows the searched movies based on the entered keyword
-  async openMovies() {
+  async getMovies() {
     
     //if the search hasn't been initialized (no keyword), display Trending Movies
     if (this.keyword == "") {
-      this.titleTM = "Today's Trending Movies";
-      await this.getTrendingMovies();
-      return;
+        this.titleTM = "Today's Trending Movies";
+        await this.getTrendingMovies();
+    } else {
+    //else shows the searched movies
+        var searchOptions: HttpOptions = {
+         url: "https://api.themoviedb.org/3/search/movie?query=" + this.keyword + "&api_key=" + this.myApiKey
+        }
+        var searchMovies = await this.myHttp.get(searchOptions);
+        this.trendingMovies = searchMovies.data.results;
+        this.titleTM = this.keyword + " Movies";
+        this.keyword = ""; //blank keyword
     }
-
-    //shows the searched movies
-    var searchOptions: HttpOptions = {
-      url: "https://api.themoviedb.org/3/search/movie?query=" + this.keyword + "&api_key=" + this.myApiKey
-    }
-    var searchMovies = await this.myHttp.get(searchOptions);
-    this.trendingMovies = searchMovies.data.results;
-    this.titleTM = this.keyword + " Movies";
-    this.keyword = ""; //blank keyword
   }
 
   //icon navigating to the Favourites Page
